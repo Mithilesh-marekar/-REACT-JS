@@ -1,3 +1,5 @@
+
+// Importing HOOK's from React
 import { useState, useCallback, useEffect, useRef } from "react";
 import './App.css'
 
@@ -9,7 +11,7 @@ function App() {
 
   // Reference hook
   const passwordRef = useRef(null);
-
+// useCallback HOOK
   const passwordGenerator = useCallback(() => {
     let pass = "";
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -27,17 +29,19 @@ function App() {
     setPassword(pass);
   }, [length, numberAllowed, characterAllowed, setPassword]);
 
+  // Copying Password to Clipboard
 const copyPasswordToClipboard = useCallback(() => {
   passwordRef.current?.select();
   passwordRef.current?.setSelectionRange(0,50);
   window.navigator.clipboard.writeText(password)
 }, [password])
 
-
+// useEffect Hook
   useEffect(() => {passwordGenerator()} , [length, numberAllowed, characterAllowed, passwordGenerator])
 
   return (
     <>
+    {/* Input Field */}
       <div  id = "Main" className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-4 my-8 text-orange-500 bg-gray-700">
         <h1 className="text-white text-center my-3 text-3xl">
           Password Generator
@@ -51,12 +55,16 @@ const copyPasswordToClipboard = useCallback(() => {
             readOnly
             ref={passwordRef}
           />
+
+          {/* Copy Button */}
           <button 
           onClick={copyPasswordToClipboard}
           className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
             Copy
           </button>
         </div>
+
+        {/* Range Selector */}
         <div className="flex text-smgap-x-2">
           <div className="flex items-center gap-x-1">
             <input
@@ -71,6 +79,8 @@ const copyPasswordToClipboard = useCallback(() => {
             />
             <label>Length : {length}</label>
           </div>
+
+           {/* Number Checkbox */}
           <div className="flex items-center gap-x-1 px-2">
             <input
               type="checkbox"
@@ -83,6 +93,7 @@ const copyPasswordToClipboard = useCallback(() => {
             <label htmlFor="numberInput">Numbers</label>
           </div>
 
+              {/* Character Checkbox */}
           <div className="flex items-center gap-x-1">
             <input
               type="checkbox"
@@ -96,6 +107,8 @@ const copyPasswordToClipboard = useCallback(() => {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
       <footer className="text-white text-center"> : Mithilesh Marekar</footer>
     </>
   );
